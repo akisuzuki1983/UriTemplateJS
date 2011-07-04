@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Script-Type" content="text/javascript"/>
+<script type="text/javascript" src="UriTemplate.js"></script>
+<style type="text/css">
+    table, td, th {
+        border:1px #000000 solid;
+        padding:1px 2px;
+    }
+    th {
+        background-color:#cccccc;
+    }
+    .template, .output {
+        padding 2px;
+        margin 2px;
+    }
+</style>
+</head>
+<body>
+<form action="" method="">
+    <ul id=params>
+    <lh>Given Parameters</lh>
+    </ul>
+    <table id="testcase" style="border:1px #000000 solid;">
+        <tr>
+            <th>URI Template</th><th>Concrete URI</th>
+        </tr>
+        <!--tr>
+        <td><input id="input" class="template" value=""></td><td><span id="output" class="result"></span></td>
+        </tr-->
+    </table>
+</form>
+<script>
+<!--
+window.onload = function() {
+    // testing uri template
+    var cases = [
+        "http://example.com/~{username}",
+        "http://example.com/~{username+}",
+        "http://example.com/{term:1}/{term}",
+        "http://example.com/{term:-6}/{term}",
+        "http://example.com/{term^4}/{term}",
+        "http://example.com/{term^-6}/{term}",
+        "http://example.com/search{/x,y}",
+        "http://www.google.co.jp/search{?q,cr}"
+    ];
+    // testing parameters
+    var param = {
+        username : "suzuki",
+        term : "JavaScript",
+        x : 480,
+        y : 320,
+        q: "Japan earthquake",
+        cr : "countryOM"
+    };
+    var list = document.getElementById("params");
+    for(var k in param) {
+        var li = document.createElement("li");
+        li.innerText = k + " = " + param[k];
+        list.appendChild(li);
+    }
+    // render testing date and results
+    var tbl = document.getElementById("testcase");
+    for(var i = 0; i < cases.length; ++i) {
+        var row = document.createElement("tr");
+        var templ = document.createElement("td");
+        var res = document.createElement("td");
+        templ.innerHTML = "<span class='template'>" + cases[i] + "</span>";
+        var ut = new MYAPP.UriTemplate.Parser();
+        ut.init(cases[i]);
+        var result = ut.evaluate(param);
+        res.innerHTML = "<span class='result'>" + result + "</span>";
+        row.appendChild(templ);
+        row.appendChild(res);
+        tbl.appendChild(row);
+    }
+};
+</script>
+</body>
+</html>
